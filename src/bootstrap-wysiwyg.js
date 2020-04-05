@@ -244,7 +244,10 @@
         $.each( files, function( idx, fileInfo ) {
             if ( /^image\//.test( fileInfo.type ) || /.+\.(bmp|gif|jpg|jpeg|png)$/.test(fileInfo.name.toLowerCase()) ) {
                 $.when( self.readFileIntoDataUrl( fileInfo ) ).done( function( dataUrl ) {
-                    self.execCommand( "insertimage", dataUrl, editor, options, toolbarBtnSelector );
+                    var id = "001img";
+                    var height = "300px";
+                    var imgTag = "<img src='" + dataUrl + "' id=" + id + " height=" + height + ">";
+                    self.execCommand( "insertHTML", imgTag, editor, options, toolbarBtnSelector );
                     editor.trigger( "image-inserted" );
                 } ).fail( function( e ) {
                     options.fileUploadError( "file-reader", e );
